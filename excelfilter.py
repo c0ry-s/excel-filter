@@ -29,6 +29,25 @@ import sys
 import threading
 from pathlib import Path
 
+
+def _set_tkdnd_path_for_frozen_app() -> None:
+    """Ensure tkdnd (used by tkinterdnd2) is discoverable in PyInstaller builds.
+
+    PyInstaller extracts bundled resources to a temp folder referenced by sys._MEIPASS.
+    Tcl looks for the tkdnd package via its auto_path; setting TCLLIBPATH points Tcl
+    at the bundled tkdnd directory so `package require tkdnd` succeeds.
+    """
+    base = getattr(sys, "_MEIPASS", None)
+    if not base:
+        return
+
+    tkdnd_dir = os.path.join(base, "tkinterdnd2", "tkdnd")
+    if os.path.isdir(tkdnd_dir):
+        os.environ["TCLLIBPATH"] = tkdnd_dir
+
+
+_set_tkdnd_path_for_frozen_app()
+
 import pandas as pd
 import re
 import tkinter as tk

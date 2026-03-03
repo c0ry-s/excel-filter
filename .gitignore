@@ -6,6 +6,8 @@ builds/
 releases/
 .eggs/
 *.egg-info/
+logs/
+scripts/logs/
 
 # Python
 __pycache__/

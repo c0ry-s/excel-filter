@@ -1,0 +1,15 @@
+# Build artifacts
+build/
+dist/
+*.spec
+builds/
+releases/
+.eggs/
+*.egg-info/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
